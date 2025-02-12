@@ -7,7 +7,7 @@ SUCCESS='\033[0;32m'
 NC='\033[0m'
 
 echoError() {
-    echo -e "${ERROR}Error: $1${NC}\n Exiting..." 1>&2
+    echo -e "${ERROR}Error: $1${NC}\nExiting..." 1>&2
     exit 1
 }
 
@@ -101,12 +101,19 @@ if [ $skip_confirmation -eq 0 ]; then
         exit 0
     fi
 
-    read -p "Enter path to the Vesktop app.asar directory. Default is '$path': " opt_path
+    if [[ -z "$opt_path" ]]; then
+        read -p "Enter path to the Vesktop app.asar directory. Default is '$path': " opt_path
+    fi    
 fi
 
 # Path validation
 if [[ -z "$opt_path" ]]; then
     echoWarn "No path specified. Will try to use default path '$path'."
+else
+    path=$opt_path
+    if [[ $opt_verbose -eq 1 ]]; then
+        echoInfo "Using path '$path'."
+    fi
 fi
 
 if [[ ! -d "$path" ]]; then
