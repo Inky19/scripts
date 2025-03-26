@@ -2,6 +2,12 @@
 
 A collection of scripts to tweak [Vesktop](https://github.com/Vencord/Vesktop), an alternative client of Discord which fixes many issues with Discord on Linux.
 
+## DisblockCustom
+This is a theme heavily based on the excellent [DisblockOrigin by TheSunCat](https://codeberg.org/AllPurposeMat/Disblock-Origin) with additional tweaks to hide anything nitro-related, hide some Vesktop promotions and correct some aberrations made in the new (03/2025) Discord desktop UI.  
+In particular, it hides the top bar and aligns the profile panel with the send message bar.  
+  
+If you're using Vesktop, put this file in `~/.config/vesktop/themes` (or equivalent if you're not using Linux, although you really should).
+
 ## Vesktop customizer
 Lastest version tested : `Vesktop 1.5.5`
 
