@@ -358,8 +358,10 @@ div[class^="imageContainer_"] div[class^="hoverButton_"]:not([class*="removeMosa
 
  /* Message Bar and typing indicator*/
  div[class*="channelTextArea_"] {margin-bottom: 0px}
- div[class*="typing_"] {margin-bottom:61px; background:var(--background-secondary)}
+ form[class*="formWithLoadedChatInput_"] {display:flex; flex-direction: column-reverse}
+ div[class*="typing_"] {position:absolute; top:-24px; background:var(--background-secondary)}
  div[class*="channelBottomBarArea_"] {margin-bottom:8px}
+
  ol[class*="scrollerInner_"] {padding-bottom: 16px}
  div[class*="channelTextArea_"] {padding-bottom: 2px; padding-top: 2px}
 
