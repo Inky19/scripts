@@ -32,7 +32,7 @@ opt_verbose=0
 opt_skip_root_check=0
 opt_skip_confirmation=0
 
-path="/usr/lib/vesktop"
+asar_path="/usr/lib/vesktop"
 icon_path="/usr/share/icons/hicolor"
 skip_confirmation=0
 
@@ -55,7 +55,7 @@ while getopts "hytavp:" opt; do
             echo "  -a  Skip confirmation of customizing the animation."
             echo "  -i  Skip confirmation of customizing the desktop icon."
             echo "  -p  path to the Vesktop app.asar directory."
-            echoInfo "      Default path is '$path'."
+            echoInfo "      Default path is '$asar_path'."
             echo "  -d  path to the Vesktop icon parent directory."
             echoInfo "      Default path is '$icon_path'."
             echoInfo "      Icons must placed in assets/icons and have the same name as their dimensions (e.g. 16x16.png, 32x32.png, etc.)."
@@ -68,7 +68,7 @@ while getopts "hytavp:" opt; do
             opt_animation=1
             opt_icon=1
             opt_skip_confirmation=1
-            opt_path=$path
+            opt_path=$asar_path
             opt_icon_path=$icon_path
             ;;
         t)
@@ -131,7 +131,7 @@ if [ $skip_confirmation -eq 0 ]; then
     fi
 
     if [[ -z "$opt_path" ]]; then
-        read -p "Enter path to the Vesktop app.asar directory. Default is '$path': " opt_path
+        read -p "Enter path to the Vesktop app.asar directory. Default is '$asar_path': " opt_path
     fi
 
     if [[ -z "$opt_icon_path" ]]; then
@@ -248,20 +248,20 @@ echoInfo "Desktop icon customization complete."
 echoInfo "Starting customization of app.asar..."
 # Path validation
 if [[ -z "$opt_path" ]]; then
-    echoWarn "No path specified. Will try to use default path '$path'."
+    echoWarn "No path specified. Will try to use default path '$asar_path'."
 else
-    path=$opt_path
+    asar_path=$opt_path
     if [[ $opt_verbose -eq 1 ]]; then
-        echoInfo "Using path '$path'."
+        echoInfo "Using path '$asar_path'."
     fi
 fi
 
-if [[ ! -d "$path" ]]; then
-    echoError "Path $path does not exist." 
+if [[ ! -d "$asar_path" ]]; then
+    echoError "Path $asar_path does not exist." 
 fi
 
-if [[ ! -f "$path/app.asar" ]]; then
-    echoError "Path $path does not contain app.asar."
+if [[ ! -f "$asar_path/app.asar" ]]; then
+    echoError "Path $asar_path does not contain app.asar."
 fi
 
 # Create temporary directory
@@ -277,7 +277,7 @@ fi
 
 # Extract app.asar
 echoInfo "Extracting app.asar..."
-asar extract "$path/app.asar" "$tmp_dir/app"
+asar extract "$asar_path/app.asar" "$tmp_dir/app"
 
 # Customization
 if [[ $opt_tray -eq 1 ]]; then
@@ -309,22 +309,22 @@ asar pack "$tmp_dir/app" "$tmp_dir/app.asar"
 
 # Might need root access to replace app.asar
 replaceAsar () {
-    path=$1
+    asar_path=$1
     tmp_dir=$2
 
     INFO='\033[0;36m'
     NC='\033[0m'
 
     echo -e "${INFO}Backing up app.asar to app.asar.old...${NC}"
-    if [[ -f "$path/app.asar.old" ]]; then
-        rm "$path/app.asar.old"
+    if [[ -f "$asar_path/app.asar.old" ]]; then
+        rm "$asar_path/app.asar.old"
     fi
-    mv "$path/app.asar" "$path/app.asar.old"
+    mv "$asar_path/app.asar" "$asar_path/app.asar.old"
 
     if [[ $opt_verbose -eq 1 ]]; then
         echo -e "${INFO}Replacing app.asar...${NC}"
     fi
-    mv "$tmp_dir/app.asar" "$path/app.asar"
+    mv "$tmp_dir/app.asar" "$asar_path/app.asar"
 
 }
 
@@ -332,9 +332,9 @@ replaceAsar () {
 if [[ $opt_skip_root_check -eq 0 && "$EUID" -ne 0 ]]; then
     echo "This section will require root access to replace the app.asar file."
     echo "Please enter your password if prompted."
-    sudo bash -c "$(declare -f replaceAsar); replaceAsar $path $tmp_dir" 
+    sudo bash -c "$(declare -f replaceAsar); replaceAsar $asar_path $tmp_dir" 
 else
-    replaceAsar $path $tmp_dir
+    replaceAsar $asar_path $tmp_dir
 fi
 
 echoInfo "Cleaning up..."

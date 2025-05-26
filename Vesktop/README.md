@@ -9,7 +9,7 @@ In particular, it hides the top bar and aligns the profile panel with the send m
 If you're using Vesktop, put this file in `~/.config/vesktop/themes` (or equivalent if you're not using Linux, although you really should).
 
 ## Vesktop customizer
-Lastest version tested : `Vesktop 1.5.5`
+Lastest version tested : `Vesktop 1.5.6`
 
 This script aims to automate the customization of Vesktop's desktop icon, loading animation GIF and system tray icon (as the time of writing, this feature has not yet been integrated into the main release). It will basically repackage the `app.asar` file used by Vesktop and delete existing icons to replace them.
 
