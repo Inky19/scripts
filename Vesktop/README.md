@@ -24,7 +24,7 @@ The command `asar` must be available on your system.
 Working directory must be the same directory as the script and have the "assets" subdirectory which should contains the following :
 
 - The loading GIF must be named `animation.gif`. Note that Vesktop support transparent GIFs. For best results, use a square GIF.
-- The system tray icon must be named `icon.png`. For best results, use a square image.
+- The system tray icon must be named `tray.png`. For best results, use a square image.
 - All desktop icons must be PNG and be placed in a subdirectory `icons` (so in *assets/icons*) and must be named according to their resolution. The script will copy them into the system icon folder for Vesktop (usually /usr/share/icons/hicolor) and place each icon in the **subdirectory with the same name**. For example, the icon `assets/icons/64x64.png` will be copied to `/usr/share/icons/hicolor/64x64/apps/vesktop.png`. 
 
 You can then run `./vesktop_customizer.sh`. Use `-h` to get a list of all available options.
