@@ -28,3 +28,8 @@ Working directory must be the same directory as the script and have the "assets"
 - All desktop icons must be PNG and be placed in a subdirectory `icons` (so in *assets/icons*) and must be named according to their resolution. The script will copy them into the system icon folder for Vesktop (usually /usr/share/icons/hicolor) and place each icon in the **subdirectory with the same name**. For example, the icon `assets/icons/64x64.png` will be copied to `/usr/share/icons/hicolor/64x64/apps/vesktop.png`. 
 
 You can then run `./vesktop_customizer.sh`. Use `-h` to get a list of all available options.
+
+Included icons are not mine:
+- The loading fox GIF is by [_Stinvi_](https://dribbble.com/shots/6767785-Fox-Loading)
+- The system tray is by [_Taylor Cioci_](https://dribbble.com/shots/14442982-Fox-Wolf-Discord-Icon)
+- The application icon is just a recolor of the system tray.
