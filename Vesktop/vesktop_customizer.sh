@@ -285,7 +285,7 @@ if [[ $opt_tray -eq 1 ]]; then
         echoInfo "Customizing tray..."
     fi
     if [[ ! -f "./assets/tray.png" ]]; then
-        echoError "Tray icon not found. File must be named 'tray.ico' and placed in a subdirectory named "assets". Exiting."
+        echoError "Tray icon not found. File must be named 'tray.png' and placed in a subdirectory named "assets". Exiting."
     fi
     rm "$tmp_dir/app/static/icon.png"
     cp "./assets/tray.png" "$tmp_dir/app/static/icon.png"
