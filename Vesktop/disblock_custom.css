@@ -449,8 +449,36 @@ div[class^="members_"] div:not([class]):has(div[class*="openOnHover__"]) { displ
  /*          Custom          */
  /* ------------------------ */
 
- /* Disable nitro profile animated banner*/
+ /* Disable nitro profile animated banner */
  div[class*=banner_] {background-image: none !important}
+
+ /* Disable nitro profile background */
+ /* TODO: light themes*/
+ div[class*="custom-user-profile-theme"] {
+   padding: 0;
+   --profile-gradient-primary-color: var(--background-surface-high) !important;
+   --profile-gradient-secondary-color: var(--background-surface-high) !important;
+   --profile-gradient-overlay-color: rgba(0, 0, 0, 0) !important;
+   --profile-gradient-button-color: var(--background-mod-subtle) !important;
+   --profile-gradient-modal-background-color: var(--background-base-lower) !important;
+   --custom-theme-base-color-amount: unset !important;
+   --custom-theme-text-color-amount: unset !important;
+}
+
+ /* Disable custom nitro font in username*/
+ div[class*=usernameFont_] {font-family: unset; letter-spacing: 0;}
+ span[class*=name_] {font-family: unset; letter-spacing: 0;}
+ span[data-username-with-effects] {
+   font-family: var(--font-display);
+   letter-spacing: 0;
+   animation-iteration-count: 0 !important;
+   animation: unset !important;
+   -webkit-text-stroke-color: unset !important;
+   -webkit-text-stroke-width: 0 !important;
+ }
+ span[data-username-with-effects] + span {
+   display: none;
+}
 
  /* Hide Vencord donation card */
  div[class*=vc-special-card] {display: none}
