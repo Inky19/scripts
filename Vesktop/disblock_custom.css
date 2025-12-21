@@ -40,91 +40,87 @@
 /* ------------------ */
 /* Hide Nitro upsells */
 /* ------------------ */
+
 li[role="listitem"] {
-  /* Hide Nitro button in Home */
-  &:has(a[href="/store"]) { display: none; }
+  /* Hide the "Nitro", "Shop", and "Quests" buttons in Home */
+  &:has(a[href="/store"], a[href="/shop"], a[href="/quest-home"]) { display: none; }
 
-  /* Hide quests button in Home */
-  &:has(a[href="/quest-home"]) { display: none; }
-
-  /* Hide shop button in Home */
-  &:has(a[href="/shop"]) {
-    display: none;
-
-    /* Also hide the extra space left by these buttons */
-    ~ div[class^="sectionDivider"] {
-      margin-top: var(--space-4);
-    }
+  /* Align the gap on the top and bottom of the remaining friends button */
+  ~ div[class^="sectionDivider"] {
+    margin-top: var(--space-8);
   }
 }
+
 /* [Settings][Sidebar] Hide Nitro tabs */
-div[role="tablist"] {
-  > div[class*="separator_"]:has(+ div[class*="header_"] + div[class*="premiumTab_"]) { display: var(--display-settings-billing-header); }  /* Separator */
-  > div[class*="header_"]:has(+ div[class*="premiumTab_"]) { display: var(--display-settings-billing-header); }  /* Billing Settings header */
-  > div[class*="premiumTab_"] { display: var(--display-settings-nitro-tab); } /* Nitro */
-  > div[class*="premiumTab_"] + div { display: var(--display-settings-server-boost-tab); } /* Server Boost */
-  > div[class*="premiumTab_"] + div + div { display: var(--display-settings-subscriptions-tab); } /* Subscriptions */
-  > div[class*="premiumTab_"] + div + div + div { display: var(--display-settings-gift-inventory-tab); } /* Gift Inventory */
-  > div[class*="premiumTab_"] + div + div + div + div { display: var(--display-nitro-features); } /* Billing */
+div[role="list"] nav {
+  @container style(--bool-settings-payment-section: false) {
+    ul[class*="section"]:has(div[data-settings-sidebar-item="nitro_panel"]) { display: none; }
+  }
+  @container style(--bool-settings-payment-section: true) {
+    div[class^="sectionLabel__"]:has(+ div[data-settings-sidebar-item="nitro_panel"]) { display: var(--display-settings-billing-header); }  /* Billing Settings header */
+    div[data-settings-sidebar-item="nitro_panel"] { display: var(--display-settings-nitro-tab); } /* Nitro */
+    div[data-settings-sidebar-item="premium_guild_subscriptions_panel"] { display: var(--display-settings-server-boost-tab); } /* Server Boost */
+    div[data-settings-sidebar-item="subscriptions_panel"] { display: var(--display-settings-subscriptions-tab); } /* Subscriptions */
+    div[data-settings-sidebar-item="gift_panel"] { display: var(--display-settings-gift-inventory-tab); } /* Gift Inventory */
+    div[data-settings-sidebar-item="billing_panel"] { display: var(--display-nitro-features); } /* Billing */
+  }
 }
-
-/* [Settings][Sidebar] Disable Nitro tab shininess (for search) */
-div[class^="premiumTab"] {
-  div[class^="premiumLabel"] svg { display: none; }
-  div[class^="background"] { display: none; }
-}
-
-/* Server Profiles: Make unique profiles for each server box */
-div[class*="upsellOverlayContainer_"] { display: none; }
 
 
 /* These settings are not applied if the billing tab is shown (inferred the user has Nitro) */
 @container style(--display-nitro-features: none) {
   /* Profiles: Choose a GIF avatar */
-  ul[class^=optionsList] { grid-template-columns: 1fr; }
-  ul[class^=optionsList] li:nth-child(2) { display: none; }
+  main {
+    div[class*=imageSelectionSection] {
+      ul[class*=optionsList] {
+        grid-template-columns: 1fr;
+        li:nth-child(2) { display: none; }
+      }
+    }
+
+    div[class*=premiumUpsell] { display: none; }
+  }
 
   /* Add Super Reaction menu item */
-  div[class^=burstToggle] { display: none; }
-  div[class^="burstToggle"] { display: none; }
+  div:has(>#burst-reaction-toggle-button) { display: none; }
 }
 
 /* Profiles: Change decorations exclusive to Nitro */
 div[class*="decorationGridItem"]:has(div[class*="iconBadge"]) { display: none; } /* Decorations */
 div[class*="effectGridItem"]:has(div[class*="iconBadge"]) { display: none; } /* Effects */
 
-/* Profiles: Try out Nitro! box */
-div[class^="premiumFeatureBorder"] { display: none; }
+/* Profiles: Nitro Preview box */
+div[class*="premiumFeatureBorder"] { display: none; }
 
-#profile-customization-tab {
-/* Hide the 'Give your profile a fresh look' ad */
-div[class^="container"]:has(div[class^="artContainer_"]) { display: none; }
+div[class*="settingsPage"] {
+  /* Per-server Profiles: Make unique profiles for each server box */
+  div[class*="upsellOverlayContainer"] { display: none; }
 
-/* Orbs ad */
-> div[class^="container"]:has(div[class*="artContainer_"]) { display: none; }
+  /* Hide the 'Give your profile a fresh look' ad */
+  div[class*="container"]:has(div[class*="artContainer"]) { display: none; }
 
-/* [Settings][Profiles]: Per server avatar */
-div[class^="avatar_"]:has(path[d="M7 4a1 1 0 0 0 0 2h3a1 1 0 1 1 0 2H5.5a1 1 0 0 0 0 2H8a1 1 0 1 1 0 2H6a1 1 0 1 0 0 2h1.25A8 8 0 1 0 15 4H7Zm8 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"]) {
-  pointer-events: none;
-}
+  /* [Settings][Profiles]: Per server avatar */
+  div[role=button][class*="avatar"]:has(path[d="M16.23 12c0 1.29-.95 2.25-2.22 2.25A2.18"]) {
+    pointer-events: none;
+  }
 
-/* [Settings][Profiles]: Hide profile customization ad in banner preview */
-foreignObject div[role="button"]:has(path[d^="M15 14a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"]) { display: none;}
+  /* [Settings][Profiles]: Hide profile customization ad in banner preview */
+  foreignObject div[role="button"]:has(path[d^="M16.23 12c0 1.29-.95 2.25-2.22"]) { display: none;}
 
-/* [Settings][Profiles]: Hide the 'Level up your look, only with Nitro' upsell banner */
-div[class^="upsellContainer"] { display: none; }
+  /* [Settings][Profiles]: Hide the 'Level up your look, only with Nitro' upsell banner */
+  div[class*="upsellContainer"] { display: none; }
 }
 
 /* [Settings][Voice & Video] Soundboard entrance sounds */
 div[id="voice-&-video-tab"] div[class*="callSoundsDivider_"] ~ * { display: none; }
 
-#appearance-tab {
-/* [Settings][Appearance] App icon and Theme upsell */
-section[class*="basicThemeSelectors"] {
-  &+ div, &+div + div { display: none; }
-}
+div[class^="panel__"] {
+  /* [Settings][Appearance] App icon and Theme upsell */
+  section[class*="basicThemeSelectors"] {
+    &+ div, &+div + div { display: none; }
+  }
 
-div[class*="selectionGroup"]:has(img[alt="App Icon"]) { display: none; }
+  div[class*="selectionGroup"]:has(img[alt="App Icon"]) { display: none; }
 }
 
 /* Hide message size upsells */
@@ -204,7 +200,7 @@ div[data-popout-animating] div[class^=picker] {
 /* ------------- */
 
 /* Boost progress bar */
-#channels > ul > li > div[data-list-item-id^="channels___boosts"] { display: none; }
+#channels > ul > div[class*="container__"]:has([class*="boostCountText__"]) { display: none; }
 
 /* Server Boost button in top left dropdown */
 div[id="guild-header-popout-premium-subscribe"] { display: none; }
@@ -295,37 +291,38 @@ div[id*="popout_"]:has(div[class*="imgWrapper__"] img[src^="https://cdn.discorda
   display: none;
 }
 
-
 /* ------------------ */
 /* General annoyances */
 /* ------------------ */
 
 /* Chatbox buttons */
-form div[class^=channelBottomBarArea_] {
-  div[class^="buttons_"]
-  {
-    /* Send gift button (both versions) */
-    &> div:not(.expression-picker-chat-input-button) {
-      /* Web client */
-      &:has(div[class*="lottieIcon__"]) { display: none; }
+form div[class*=channelBottomBarArea] div[class*=buttons] {
+  /* Send gift button (both versions) */
+  &> div:not(.expression-picker-chat-input-button):not(.app-launcher-entrypoint) {
+    /* Web client */
+    &:has(div[class*="lottieIcon__"]) { display: none; }
 
-      /* Desktop client */
-      &:has(>span) { display: none; }
-    }
-
-    /* GIF picker button */
-    /div.expression-picker-chat-input-button:has( + div.expression-picker-chat-input-button div[class*="stickerButton_"]) { display: var(--display-gif-button, flex); }
-
-    /* Sticker picker button */
-    div.expression-picker-chat-input-button:has(div[class*="stickerButton_"]) { display: var(--display-sticker-button, flex); }
+    /* Desktop client */
+    &:has(>span) { display: none; }
   }
 
-  /* Apps button (right) */
-  div[class^="channelAppLauncher_"] { display: var(--display-app-launcher); }
+  div.expression-picker-chat-input-button {
+    /* GIF picker button */
+    &:has( + span[class^="hiddenVisually_"] + div.expression-picker-chat-input-button div[class*="stickerButton_"]) { display: var(--display-gif-button, flex); }
+
+    /* Sticker picker button */
+    &:has(div[class*="stickerButton"]) { display: var(--display-sticker-button, flex); }
+
+    /* Emoji picker button */
+    &:has(div[class*="emojiButton"]) { display: var(--display-emoji-button, flex); }
+  }
+
+  /* Apps button */
+  div.app-launcher-entrypoint { display: var(--display-app-launcher); }
 }
 
 /* Hide emoji suggestions on message hover */
-div[class*="popover_"] {
+div[class*="popover"] {
   /* Emoji reaction buttons */
   div[role="button"]:has(div[data-type="emoji"]) { display: var(--display-hover-reaction-emoji, flex); }
 
@@ -444,13 +441,29 @@ div[class^="members_"] div:not([class]):has(div[class*="openOnHover__"]) { displ
   div[class*="sidebarList_"]:has(div[class*="animatedContainer_"]) div[class*="scroller_"] > ul { margin-top: -84px; }
 }
 
+@container style(--bool-show-profile-banner: false) or style(--bool-show-profile-banner: 0) {
+  /* Hide profile banner in popout and modal */
+  div[class*="user-profile-popout"] div[class^="banner_"], div[class*="user-profile-modal"] div[class^="banner_"] {
+    background-image: unset !important;
+
+    /* Hide the GIF tag for when "Automatically play GIFs when Discord is focused." is disabled */
+    & > div[class^="gifTag_"]{ display: none; }
+  }
+}
+
+@container style(--bool-show-profile-modal-background-banner: false) or style(--bool-show-profile-modal-background-banner: 0) {
+  /* Hide profile modal background banner */
+  div[class*="user-profile-modal"] div[class^="backgroundImage_"] {
+    background-image: unset !important;
+  }
+}
 
  /* ------------------------ */
  /*          Custom          */
  /* ------------------------ */
 
  /* Disable nitro profile animated banner */
- div[class*=banner_] {background-image: none !important}
+ div[class*=-banner] {background-image: none !important}
 
  /* Disable nitro profile background */
  /* TODO: light themes*/
@@ -463,11 +476,14 @@ div[class^="members_"] div:not([class]):has(div[class*="openOnHover__"]) { displ
    --profile-gradient-modal-background-color: var(--background-base-lower) !important;
    --custom-theme-base-color-amount: unset !important;
    --custom-theme-text-color-amount: unset !important;
+   div[class*="backgroundImage"] {
+     display: none;
+  }
 }
 
  /* Disable custom nitro font in username*/
- div[class*=usernameFont_] {font-family: unset; letter-spacing: 0;}
- span[class*=name_] {font-family: unset; letter-spacing: 0;}
+ span[id*=message-username] > span[class*=-username] {font-family: unset; letter-spacing: 0;}
+ span[class*=-nameContainer] > span[class*=-name] {font-family: unset; letter-spacing: 0;}
  span[data-username-with-effects] {
    font-family: var(--font-display);
    letter-spacing: 0;
@@ -480,17 +496,45 @@ div[class^="members_"] div:not([class]):has(div[class*="openOnHover__"]) { displ
    display: none;
 }
 
- /* Hide Vencord donation card */
- div[class*=vc-special-card] {display: none}
+/* Hide namesplates in channel member panel */
+div[class*="-member"] > div[class*="-childContainer"] > div[class*="-container"] {display:none}
 
- /* Hide social links in settings*/
- div[class^="socialLinks"] {display: none}
+/* Hide avatar decoration */
+img[class*="-avatarDecoration"] {display:none}
+svg[class*="-avatarDecoration"] {display:none}
 
- /* Hide Title Bar*/
- div[class*="base_"] > div[class*="bar_"] {display:none}
+/* Hide profile effects */
+div[class*="profileEffects"] {display:none !important}
 
- /* Discord Icon Margin*/
- div[class*="tutorialContainer_"] {margin-top: 10px}
+/* Hide Server boost icon in the member panels of a channel */
+svg[class*=premiumIcon] {display: none}
+
+/* Hide badges related to nitro in user profile */
+a[href*="discord.com/settings/premium"] {display: none}
+
+/* Hide Vencord donation card */
+div[class*=vc-special-card] {display: none}
+
+/* Hide Nitro related tabs in settings */
+div[class*="-premiumTab"] {display: none}
+div[aria-label*="Subscription"] {display: none}
+div[aria-label*="Abonnement"] {display: none}
+
+/* Hide social links in settings*/
+div[class^="socialLinks"] {display: none}
+
+/* Hide Title Bar*/
+div[class*="-base"] > div[class*="-bar"] {display:none}
+
+/* Discord Icon Margin*/
+div[class*="-tutorialContainer"] {margin-top: 10px}
+
+/* Disable useless padding in user profile modal */
+div[class*="user-profile-modal-v2"] {
+  div[class*=inner] {
+    padding: 0;
+  }
+}
 
  /* ------------------------ */
  /* Disblock Origin branding */
