@@ -463,8 +463,7 @@ div[class^="members_"] div:not([class]):has(div[class*="openOnHover__"]) { displ
  /* ------------------------ */
 
  /* Disable nitro profile animated banner */
- div[class*=user-profile-popout] > div[class*=inner] > div[class*=header] > svg > foreignObject > div[class*=banner] {background-image: none !important}
- div[class*=profileHeader] > svg > foreignObject > div[class*=banner] {background-image: none !important}
+ svg > foreignObject > div[class*=banner] {background-image: none !important}
 
  /* Disable nitro profile background */
  /* TODO: light themes*/
