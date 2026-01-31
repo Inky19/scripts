@@ -463,7 +463,8 @@ div[class^="members_"] div:not([class]):has(div[class*="openOnHover__"]) { displ
  /* ------------------------ */
 
  /* Disable nitro profile animated banner */
- div[class*=-banner] {background-image: none !important}
+ div[class*=user-profile-popout] > div[class*=inner] > div[class*=header] > svg > foreignObject > div[class*=banner] {background-image: none !important}
+ div[class*=profileHeader] > svg > foreignObject > div[class*=banner] {background-image: none !important}
 
  /* Disable nitro profile background */
  /* TODO: light themes*/
@@ -482,8 +483,8 @@ div[class^="members_"] div:not([class]):has(div[class*="openOnHover__"]) { displ
 }
 
  /* Disable custom nitro font in username*/
- span[id*=message-username] > span[class*=-username] {font-family: unset; letter-spacing: 0;}
- span[class*=-nameContainer] > span[class*=-name] {font-family: unset; letter-spacing: 0;}
+ span[id*=message-username] > span[class*=username] {font-family: unset; letter-spacing: 0;}
+ span[class*=nameContainer] > span[class*=name] {font-family: unset; letter-spacing: 0;}
  span[data-username-with-effects] {
    font-family: var(--font-display);
    letter-spacing: 0;
@@ -496,8 +497,11 @@ div[class^="members_"] div:not([class]):has(div[class*="openOnHover__"]) { displ
    display: none;
 }
 
-/* Hide namesplates in channel member panel */
-div[class*="-member"] > div[class*="-childContainer"] > div[class*="-container"] {display:none}
+/* Hide nameplates in channel member panel */
+div[class*="member"] > div[class*="childContainer"] > div[class*="container"] {display:none}
+
+/* Hide nameplates effect in dm */
+li[class*="dm_"] > div[class*="interactive_"] > div[class*="fadeIn_"] {display:none}
 
 /* Hide avatar decoration */
 img[class*="-avatarDecoration"] {display:none}
@@ -524,10 +528,10 @@ div[aria-label*="Abonnement"] {display: none}
 div[class^="socialLinks"] {display: none}
 
 /* Hide Title Bar*/
-div[class*="-base"] > div[class*="-bar"] {display:none}
+div[class*="base_"] > div[class*="bar_"] {display:none}
 
 /* Discord Icon Margin*/
-div[class*="-tutorialContainer"] {margin-top: 10px}
+div[class*="tutorialContainer_"] {margin-top: 10px}
 
 /* Disable useless padding in user profile modal */
 div[class*="user-profile-modal-v2"] {
