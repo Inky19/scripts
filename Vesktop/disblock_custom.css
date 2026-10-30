@@ -463,7 +463,10 @@ div[class^="members_"] div:not([class]):has(div[class*="openOnHover__"]) { displ
  /* ------------------------ */
 
  /* Disable nitro profile animated banner */
- svg > foreignObject > div[class*=banner] {background-image: none !important}
+div[class*=banner] > div[class*=banner] {
+  background-image: none !important;
+  transition: none;
+}
 
  /* Disable nitro profile background */
  /* TODO: light themes*/
@@ -485,12 +488,14 @@ div[class^="members_"] div:not([class]):has(div[class*="openOnHover__"]) { displ
  span[id*=message-username] > span[class*=username] {font-family: unset; letter-spacing: 0;}
  span[class*=nameContainer] > span[class*=name] {font-family: unset; letter-spacing: 0;}
  span[data-username-with-effects] {
-   font-family: var(--font-display);
-   letter-spacing: 0;
-   animation-iteration-count: 0 !important;
-   animation: unset !important;
-   -webkit-text-stroke-color: unset !important;
-   -webkit-text-stroke-width: 0 !important;
+  font-family: var(--font-primary);
+  color: var(--text-default);
+  letter-spacing: 0;
+  animation-iteration-count: 0 !important;
+  animation: unset !important;
+  -webkit-text-stroke-color: unset !important;
+  -webkit-text-stroke-width: 0 !important;
+  -webkit-text-fill-color: unset !important;
  }
  span[data-username-with-effects] + span {
    display: none;
